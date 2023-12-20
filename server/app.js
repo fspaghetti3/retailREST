@@ -1,12 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const cloverAuthMiddleware = require('./middleware/cloverAuth');
 
 const userRoutes = require('./routes/api/users');
 const paymentRoutes = require('./routes/api/payments');
 
-const db = process.env.MONGO_URI;
 const cloverCredentials = {
     apiKey: process.env.CLOVER_API_KEY,
     merchantId: process.env.CLOVER_MERCHANT_ID,
@@ -14,13 +13,14 @@ const cloverCredentials = {
 
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/payments', cloverAuthMiddleware(cloverCredentials));
+app.use('/api/payments', cloverAuthMiddleware);
 
-mongoose
-    .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+const db = process.env.MONGO_URI;
+
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
 
