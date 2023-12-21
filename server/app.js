@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cloverAuthMiddleware = require('./middleware/cloverAuth');
 const allRoutes = require('./routes/index');
+const cors = require('cors');
 
 const cloverCredentials = {
     apiKey: process.env.CLOVER_API_KEY,
@@ -12,6 +13,8 @@ const cloverCredentials = {
 
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
