@@ -8,17 +8,17 @@
             "type": "image/x-icon"
         },
         {
-            "src": "logo-144x144.png",
+            "src": "logo.png",
             "type": "image/png",
             "sizes": "144x144"
         },
         {
-            "src": "logo-192x192.png",
+            "src": "logo.png",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "logo-512x512.png",
+            "src": "logo.png",
             "type": "image/png",
             "sizes": "512x512"
         }
@@ -26,5 +26,9 @@
     "start_url": ".",
     "display": "standalone",
     "theme_color": "#000000",
-    "background_color": "#ffffff"
+    "background_color": "#ffffff",
+
+    "resolve": {
+        "fallback": { "crypto": false }
+      }
 }

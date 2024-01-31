@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const Products = () => {
+const Products = ({ addToCart }) => {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:3001/api/products') // Adjust the URL based on your backend setup
+        // Update the URL to match your server's endpoint for fetching products
+        axios.get('http://localhost:3000/api/products')
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch');
-                }
-                return response.json();
-            })
-            .then(data => {
-                setProducts(data);
+                setProducts(response.data);
                 setIsLoading(false);
             })
             .catch(error => {
@@ -33,7 +29,8 @@ const Products = () => {
                 {products.map(product => (
                     <li key={product._id}>
                         {product.name} - {product.description}
-                        {/* Render other product details as needed */}
+                        {/* You might want to adjust this part according to your product model */}
+                        <button onClick={() => addToCart(product)}>Add to Cart</button>
                     </li>
                 ))}
             </ul>

@@ -1,8 +1,8 @@
 const User = require('../models/User');
+const axios = require('axios')
 
 const userController = {
 
-    // Get all users
     getAllUsers: async (req, res) => {
         try {
             const users = await User.find({});
@@ -12,19 +12,19 @@ const userController = {
         }
     },
 
-    // Get a single user by ID
     getUserById: async (req, res) => {
         try {
             const user = await User.findById(req.params.id);
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
-            res.json(user);
+            res.json({...user.toObject(), password: undefined});
         } catch (error) {
+            console.error('Error fetching user:', error);
             res.status(500).json({ message: 'Error fetching user' });
         }
     },
-
+    
     // Create
     createUser: async (req, res) => {
         try {
@@ -32,7 +32,14 @@ const userController = {
             await newUser.save();
             res.status(201).json(newUser);
         } catch (error) {
-            res.status(500).json({ message: 'Error creating user' });
+            if (error.name === 'ValidationError') {
+                // Extracting mongoose validation errors
+                const messages = Object.values(error.errors).map(val => val.message);
+                res.status(400).json({ message: 'Validation error', errors: messages });
+            } else {
+                // Generic error response
+                res.status(500).json({ message: 'Error creating user', error: error.message });
+            }
         }
     },
 
@@ -62,6 +69,5 @@ const userController = {
         }
     }
 };
-
 
 module.exports = userController;

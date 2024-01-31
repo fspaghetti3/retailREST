@@ -3,11 +3,11 @@ const router = express.Router();
 
 const userRoutes = require('./api/users');
 const productRoutes = require('./api/products');
-const paymentRoutes = require('./api/payments');
+const stripeRoutes = require('./api/stripe')
+
 
 router.use('/users', userRoutes);
 router.use('/products', productRoutes);
-router.use('/payments', paymentRoutes);
-
+router.use('/stripe', stripeRoutes)
 
 module.exports = router;

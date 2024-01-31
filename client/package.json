@@ -1,13 +1,25 @@
 {
   "dependencies": {
+    "@stripe/react-stripe-js": "^2.4.0",
+    "@stripe/stripe-js": "^2.3.0",
+    "axios": "^1.6.5",
+    "craco": "^0.0.3",
     "create-react-app": "^5.0.1",
+    "crypto-browserify": "^3.12.0",
+    "dotenv": "^16.3.1",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.1",
     "react-scripts": "^5.0.1",
-    "sass": "^1.69.5"
+    "react-stripe-js": "^1.1.5",
+    "sass": "^1.69.5",
+    "stream-browserify": "^3.0.0",
+    "stripe": "^14.13.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "start": "craco start",
+    "build": "craco build"
   },
   "browserslist": {
     "production": [
@@ -20,5 +32,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:3001"
 }

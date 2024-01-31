@@ -14,12 +14,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Password is required'],
         minlength: [6, 'Password must be at least 6 characters long'],
-    }
+    },
+    cloverCustomerId: String 
 }, {
     timestamps: true
 });
 
-// Pre-save middleware to hash password
+
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
     this.password = await bcrypt.hash(this.password, 12);
